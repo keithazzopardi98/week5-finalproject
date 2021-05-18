@@ -114,17 +114,6 @@ def submit(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     user = request.user
     enrollment = Enrollment.objects.get(user=user, course=course)
-    #submission = Submission.objects.create(enrollment=enrollment)
-    #for ans in extract_answers(request):
-    #    chosen_ans = get_object_or_404(Choice, pk=ans)
-    #    submission.choices.set([chosen_ans])
-    #    submission.save()
-    #answers_all = extract_answers(request)
-    #print(answers_all, flush=True)
-    #for ans in answers_all:
-    #    chosen_ans = get_object_or_404(Choice, pk=ans)
-    #    submission = Submission.objects.create(enrollment=enrollment)
-    #    submission.choice.set([chosen_ans])
     submission = Submission(enrollment=enrollment)
     submission.save()
     answers_all = extract_answers(request)
