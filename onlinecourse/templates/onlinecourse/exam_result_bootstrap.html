@@ -53,7 +53,31 @@
         <div class="card-columns-vertical mt-1">
         <h5 class="">Exam results</h5>
             <!--HINT Display exam results-->
-            the exam is called {{ course.name }}
+            <div class="card-columns-vertical">
+                {% for question in course.question_set.all %}
+                    <div class="card mt-1">
+                        <div class="card-header"><h5>{{question.text}}</h5></div>
+                            <ul class="list-group list-group-flush">
+                            {% for choice in question.choice_set.all %}
+                                {% if choice.is_correct %}
+                                    {% if choice.id in selected_ids %}
+                                        <li class="list-group-item text-success">{{choice.text}}</li>
+                                    {% else %}
+                                        <li class="list-group-item text-warning">{{choice.text}}</li>
+                                    {% endif %}
+                                {% else %}
+                                    {% if choice.id in selected_ids %}
+                                        <li class="list-group-item text-danger">{{choice.text}}</li>
+                                    {% else %}
+                                        <li class="list-group-item">{{choice.text}}</li>
+                                    {% endif %}                                    
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>
